@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS topics (
+
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message VARCHAR(1024) NOT NULL,
+    status VARCHAR(15) NOT NULL,
+    author_id BIGINT NOT NULL,
+    course_id BIGINT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_topics_users FOREIGN KEY (author_id) REFERENCES users (id),
+    CONSTRAINT fk_topics_courses FOREIGN KEY (course_id) REFERENCES courses (id)
+
+);
