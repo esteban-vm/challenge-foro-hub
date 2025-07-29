@@ -20,7 +20,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     private UserRepository repository;
 
     @Autowired
-    private TokenService service;
+    private JWTTokenService service;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

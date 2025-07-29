@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class TokenService {
+public class JWTTokenService {
 
     private static final String ISSUER = "API Foro Hub";
 
@@ -36,12 +36,6 @@ public class TokenService {
         }
     }
 
-    private Instant expirationDate() {
-        return LocalDateTime.now()
-                .plusHours(2)
-                .toInstant(ZoneOffset.of("-03:00"));
-    }
-
     public String getSubject(String jwtToken) {
         try {
             var algorithm = Algorithm.HMAC256(secret);
@@ -55,5 +49,12 @@ public class TokenService {
         } catch (JWTVerificationException exception) {
             throw new RuntimeException("Token JWT inválido o expirado", exception);
         }
+    }
+
+    private Instant expirationDate() {
+        return LocalDateTime
+                .now()
+                .plusHours(2)
+                .toInstant(ZoneOffset.of("-03:00"));
     }
 }
