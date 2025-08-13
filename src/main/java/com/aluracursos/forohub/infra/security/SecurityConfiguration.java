@@ -27,10 +27,13 @@ public class SecurityConfiguration {
 
         return security.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
-                    req.anyRequest().authenticated();
+                .authorizeHttpRequests(authorization -> {
+                    authorization.requestMatchers(HttpMethod.POST, "/login")
+                            .permitAll()
+                            .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**")
+                            .permitAll()
+                            .anyRequest()
+                            .authenticated();
                 })
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
