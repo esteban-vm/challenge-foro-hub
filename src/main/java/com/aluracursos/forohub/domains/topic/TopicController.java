@@ -49,9 +49,17 @@ public class TopicController {
         return ResponseEntity.ok(topic);
     }
 
+    @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Transactional
+    @DeleteMapping("/close/{id}")
+    public ResponseEntity<Void> close(@PathVariable Long id) {
+        service.close(id);
         return ResponseEntity.noContent().build();
     }
 

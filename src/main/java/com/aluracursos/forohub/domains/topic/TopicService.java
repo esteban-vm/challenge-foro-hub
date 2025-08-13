@@ -56,4 +56,14 @@ public class TopicService {
         optTopic.ifPresent(topic -> topicRepository.deleteById(topic.getId()));
     }
 
+    public void close(Long id) {
+        var optTopic = topicRepository.findById(id);
+        
+        if (optTopic.isPresent()) {
+            var topic = optTopic.get();
+            topic.setStatus(TopicStatus.CLOSED);
+            topicRepository.save(topic);
+        }
+    }
+
 }
