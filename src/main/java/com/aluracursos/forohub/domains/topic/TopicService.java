@@ -20,7 +20,7 @@ public class TopicService {
     private TopicRepository topicRepository;
 
     public Page<TopicDetailData> getAll(Pageable pageable) {
-        return topicRepository.findAllByStatusActive(pageable).map(TopicDetailData::new);
+        return topicRepository.findAllByStatus(TopicStatus.ACTIVE, pageable).map(TopicDetailData::new);
     }
 
     public TopicDetailData getOne(Long id) {
@@ -58,7 +58,7 @@ public class TopicService {
 
     public void close(Long id) {
         var optTopic = topicRepository.findById(id);
-        
+
         if (optTopic.isPresent()) {
             var topic = optTopic.get();
             topic.setStatus(TopicStatus.CLOSED);
